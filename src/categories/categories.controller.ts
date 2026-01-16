@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { Prisma } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
@@ -9,13 +9,14 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() createCategoryDto: Prisma.CategoryCreateInput) {
+  create(@Body() createCategoryDto: any, @Req() req: any) {
+    createCategoryDto.userId = req.user.userId;
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  findAll(@Req() req: any) {
+    return this.categoriesService.findAll(req.user.userId);
   }
 
   @Get(':id')

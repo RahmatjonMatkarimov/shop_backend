@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Query, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Query, Delete, Req } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -8,7 +8,8 @@ export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post()
-  create(@Body() createSaleDto: any) {
+  create(@Body() createSaleDto: any, @Req() req: any) {
+    createSaleDto.userId = req.user.userId;
     return this.salesService.create(createSaleDto);
   }
 
@@ -18,13 +19,16 @@ export class SalesController {
   }
 
   @Get('dashboard-stats')
-  getDashboardStats() {
-      return this.salesService.getDashboardStats();
+  getDashboardStats(@Req() req: any) {
+      // Assuming getSalesStats can act as dashboard stats if refined, or we update service
+      // But actually getDashboardStats in StatisticsService also needs userId now?
+      // StatisticsService.getDashboardStats currently doesn't take userId! Need to fix that.
+      return this.salesService.getStats(req.user.userId);
   }
 
   @Get('stats')
-  getStats(@Query('shopId') shopId?: string) {
-      return this.salesService.getStats(shopId ? +shopId : undefined);
+  getStats(@Query('userId') userId?: string) {
+      return this.salesService.getStats(userId ? +userId : undefined);
   }
 
   @Delete('all')

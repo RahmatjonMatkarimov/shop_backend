@@ -6,14 +6,20 @@ import { Prisma } from '@prisma/client';
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Prisma.CategoryCreateInput) {
-    return this.prisma.category.create({ data });
+  create(data: any) {
+    return this.prisma.category.create({
+        data: {
+            name: data.name,
+            user: { connect: { id: data.userId } }
+        }
+    });
   }
 
-  findAll() {
+  findAll(userId: number) {
     return this.prisma.category.findMany({ 
+      where: { userId },
       include: { 
-        shop: true,
+        user: true,
         _count: {
           select: { products: true }
         }
@@ -22,7 +28,7 @@ export class CategoriesService {
   }
 
   findOne(id: number) {
-    return this.prisma.category.findUnique({ where: { id }, include: { shop: true, products: true } });
+    return this.prisma.category.findUnique({ where: { id }, include: { user: true, products: true } });
   }
 
   update(id: number, data: Prisma.CategoryUpdateInput) {

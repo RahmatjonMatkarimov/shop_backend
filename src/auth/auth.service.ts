@@ -20,17 +20,14 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.id, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),
+      user,
     };
   }
 
   async register(userDto: any) {
-    const hashedPassword = await bcrypt.hash(userDto.password, 10);
-    return this.usersService.create({
-      ...userDto,
-      password: hashedPassword,
-    });
+    return this.usersService.create(userDto);
   }
 }

@@ -26,10 +26,10 @@ export class ProductsService {
         barcode: data.barcode,
         boxBarcode: data.boxBarcode,
         itemsPerBox: data.itemsPerBox,
-        shop: { connect: { id: data.shopId } },
+        user: { connect: { id: data.userId } }, // userId from controller/token
         category: data.categoryId ? { connect: { id: data.categoryId } } : undefined,
       },
-      include: { category: true, shop: true }
+      include: { category: true, user: true }
     });
   }
 
@@ -48,16 +48,19 @@ export class ProductsService {
                   { boxBarcode: barcode }
               ]
           },
-          include: { category: true, shop: true }
+          include: { category: true, user: true }
       });
   }
 
-  findAll() {
-    return this.prisma.product.findMany({ include: { shop: true, category: true } });
+  findAll(userId: number) {
+    return this.prisma.product.findMany({ 
+        where: { userId },
+        include: { user: true, category: true } 
+    });
   }
 
   findOne(id: number) {
-    return this.prisma.product.findUnique({ where: { id }, include: { shop: true, category: true } });
+    return this.prisma.product.findUnique({ where: { id }, include: { user: true, category: true } });
   }
 
   update(id: number, data: Prisma.ProductUpdateInput) {

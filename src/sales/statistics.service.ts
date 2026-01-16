@@ -30,7 +30,7 @@ export class StatisticsService {
       where: whereClause,
       take: 5,
       orderBy: { createdAt: 'desc' },
-      include: { shop: true }
+      include: { user: true }
     });
 
     return {
@@ -42,7 +42,7 @@ export class StatisticsService {
     };
   }
 
-  async getSalesStats(shopId?: number, startDate?: Date, endDate?: Date) {
+  async getSalesStats(userId?: number, startDate?: Date, endDate?: Date) {
     const start = startDate || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     const end = endDate || new Date();
     
@@ -65,20 +65,20 @@ export class StatisticsService {
                 this.prisma.sale.findMany({
                     where: {
                         createdAt: { gte: currentDayStart, lte: currentDayEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     },
                     include: { items: { include: { product: true } } }
                 }),
                 this.prisma.product.count({
                     where: {
                         createdAt: { gte: currentDayStart, lte: currentDayEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     }
                 }),
                 this.prisma.debt.count({
                     where: {
                         createdAt: { gte: currentDayStart, lte: currentDayEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     }
                 })
             ]);
@@ -122,20 +122,20 @@ export class StatisticsService {
                 this.prisma.sale.findMany({
                     where: {
                         createdAt: { gte: currentMonthStart, lte: currentMonthEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     },
                     include: { items: { include: { product: true } } }
                 }),
                 this.prisma.product.count({
                     where: {
                         createdAt: { gte: currentMonthStart, lte: currentMonthEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     }
                 }),
                 this.prisma.debt.count({
                     where: {
                         createdAt: { gte: currentMonthStart, lte: currentMonthEnd },
-                        ...(shopId ? { shopId } : {})
+                        ...(userId ? { userId } : {})
                     }
                 })
             ]);
@@ -172,9 +172,9 @@ export class StatisticsService {
     };
   }
 
-  async getTopSellingProducts(shopId?: number, limit = 5) {
+  async getTopSellingProducts(userId?: number, limit = 5) {
     const where: any = {};
-    if (shopId) where.sale = { shopId };
+    if (userId) where.sale = { userId };
 
     const topItems = await this.prisma.saleItem.groupBy({
       by: ['productId'],
@@ -200,9 +200,9 @@ export class StatisticsService {
     return products;
   }
 
-  async getCategoryStats(shopId?: number) {
+  async getCategoryStats(userId?: number) {
     const categories = await this.prisma.category.findMany({
-      where: shopId ? { shopId } : {},
+      where: userId ? { userId } : {},
       include: {
         _count: {
           select: { products: true }
@@ -217,9 +217,9 @@ export class StatisticsService {
     }));
   }
 
-  async exportSalesToExcel(shopId?: number, startDate?: Date, endDate?: Date) {
+  async exportSalesToExcel(userId?: number, startDate?: Date, endDate?: Date) {
     const whereClause: any = {};
-    if (shopId) whereClause.shopId = shopId;
+    if (userId) whereClause.userId = userId;
     if (startDate || endDate) {
       whereClause.createdAt = {
         ...(startDate ? { gte: startDate } : {}),
@@ -231,7 +231,7 @@ export class StatisticsService {
       where: whereClause,
       include: {
         items: { include: { product: true } },
-        shop: true
+        user: true
       },
       orderBy: { createdAt: 'desc' }
     });
@@ -252,7 +252,7 @@ export class StatisticsService {
       worksheet.addRow({
         id: sale.id,
         date: sale.createdAt.toLocaleString('uz-UZ'),
-        shop: sale.shop.name,
+        shop: sale.user.shopName || sale.user.name,
         items: items,
         total: sale.totalAmount
       });
@@ -269,9 +269,9 @@ export class StatisticsService {
     return workbook;
   }
 
-  async exportSalesToCsv(shopId?: number, startDate?: Date, endDate?: Date) {
+  async exportSalesToCsv(userId?: number, startDate?: Date, endDate?: Date) {
     const whereClause: any = {};
-    if (shopId) whereClause.shopId = shopId;
+    if (userId) whereClause.userId = userId;
     if (startDate || endDate) {
       whereClause.createdAt = {
         ...(startDate ? { gte: startDate } : {}),
@@ -283,7 +283,7 @@ export class StatisticsService {
       where: whereClause,
       include: {
         items: { include: { product: true } },
-        shop: true
+        user: true
       },
       orderBy: { createdAt: 'desc' }
     });
@@ -292,7 +292,7 @@ export class StatisticsService {
     sales.forEach(sale => {
       const items = sale.items.map(item => `${item.product.name} (${item.quantity} ta)`).join('; ');
       const date = sale.createdAt.toISOString().split('T')[0];
-      csv += `${sale.id},${date},${sale.shop.name},"${items}",${sale.totalAmount}\n`;
+      csv += `${sale.id},${date},${sale.user.shopName || sale.user.name},\"${items}\",${sale.totalAmount}\\n`;
     });
 
     return csv;

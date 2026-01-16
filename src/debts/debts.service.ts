@@ -6,16 +6,23 @@ import { Prisma } from '@prisma/client';
 export class DebtsService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Prisma.DebtCreateInput) {
-    return this.prisma.debt.create({ data });
+  create(data: any) {
+    return this.prisma.debt.create({
+        data: {
+            customerName: data.customerName,
+            amount: data.amount,
+            description: data.description,
+            user: { connect: { id: data.userId } }
+        }
+    });
   }
 
-  findAll() {
-    return this.prisma.debt.findMany({ include: { shop: true } });
+  findAll(userId: number) {
+    return this.prisma.debt.findMany({ where: { userId }, include: { user: true } });
   }
 
   findOne(id: number) {
-    return this.prisma.debt.findUnique({ where: { id }, include: { shop: true } });
+    return this.prisma.debt.findUnique({ where: { id }, include: { user: true } });
   }
 
   update(id: number, data: Prisma.DebtUpdateInput) {

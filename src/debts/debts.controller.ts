@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { DebtsService } from './debts.service';
 import { Prisma } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
@@ -9,13 +9,14 @@ export class DebtsController {
   constructor(private readonly debtsService: DebtsService) {}
 
   @Post()
-  create(@Body() createDebtDto: Prisma.DebtCreateInput) {
+  create(@Body() createDebtDto: any, @Req() req: any) {
+    createDebtDto.userId = req.user.userId;
     return this.debtsService.create(createDebtDto);
   }
 
   @Get()
-  findAll() {
-    return this.debtsService.findAll();
+  findAll(@Req() req: any) {
+    return this.debtsService.findAll(req.user.userId);
   }
 
   @Get(':id')

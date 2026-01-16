@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Req } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Prisma } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
@@ -9,13 +9,14 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  async create(@Body() createProductDto: Prisma.ProductCreateInput) {
+  async create(@Body() createProductDto: any, @Req() req: any) {
+    createProductDto.userId = req.user.userId;
     return await this.productsService.create(createProductDto);
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Req() req: any) {
+    return this.productsService.findAll(req.user.userId);
   }
 
   @Get('barcode/:barcode')

@@ -20,7 +20,7 @@ export class SalesService {
     const sale = await this.prisma.sale.create({
       data: {
         totalAmount: data.totalAmount,
-        shop: { connect: { id: data.shopId } },
+        user: { connect: { id: data.userId } },
         items: {
           create: data.items.map((item: any) => ({
              product: { connect: { id: item.productId } },
@@ -45,36 +45,33 @@ export class SalesService {
 
   async findAll() {
     return this.prisma.sale.findMany({
-      include: {
-        items: {
-          include: {
-            product: true
-          }
-        },
-        shop: true
-      },
+      include: { user: true, items: true },
       orderBy: { createdAt: 'desc' }
     });
   }
   
+  findOne(id: number) {
+    return this.prisma.sale.findUnique({ where: { id }, include: { user: true, items: { include: { product: true } } } });
+  }
+
   async getDashboardStats() {
       return this.statisticsService.getDashboardStats();
   }
 
-   async getStats(shopId?: number) {
-      return this.statisticsService.getSalesStats(shopId);
+   async getStats(userId?: number) {
+      return this.statisticsService.getSalesStats(userId);
   }
 
-  async getTopSellingProducts(shopId?: number, limit = 5) {
-      return this.statisticsService.getTopSellingProducts(shopId, limit);
+  async getTopSellingProducts(userId?: number, limit = 5) {
+      return this.statisticsService.getTopSellingProducts(userId, limit);
   }
 
-  async getCategoryStats(shopId?: number) {
-      return this.statisticsService.getCategoryStats(shopId);
+  async getCategoryStats(userId?: number) {
+      return this.statisticsService.getCategoryStats(userId);
   }
 
-  async exportSalesToCsv(shopId?: number, startDate?: Date, endDate?: Date) {
-      return this.statisticsService.exportSalesToCsv(shopId, startDate, endDate);
+  async exportSalesToCsv(userId?: number, startDate?: Date, endDate?: Date) {
+      return this.statisticsService.exportSalesToCsv(userId, startDate, endDate);
   }
 
   async clearAllSales() {
