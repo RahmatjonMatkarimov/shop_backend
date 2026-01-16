@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:admin@localhost:5432/mydb"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  shops     Shop[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Shop {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  ownerId     Int
+  owner       User       @relation(fields: [ownerId], references: [id])
+  products    Product[]
+  categories  Category[]
+  debts       Debt[]
+  sales       Sale[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  shopId    Int
+  shop      Shop      @relation(fields: [shopId], references: [id])
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  costPrice   Float?   // Tannarxi
+  quantity    Int      @default(0)
+  barcode     String?  @unique
+  boxBarcode  String?  // Karobka shtrix kodi
+  itemsPerBox Int      @default(1) // Karobka ichidagi soni
+  shopId      Int
+  shop        Shop     @relation(fields: [shopId], references: [id])
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  saleItems   SaleItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Sale {
+  id          Int        @id @default(autoincrement())
+  totalAmount Float
+  shopId      Int
+  shop        Shop       @relation(fields: [shopId], references: [id])
+  items       SaleItem[]
+  createdAt   DateTime   @default(now())
+}
+
+model SaleItem {
+  id        Int     @id @default(autoincrement())
+  saleId    Int
+  sale      Sale    @relation(fields: [saleId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+model Debt {
+  id          Int      @id @default(autoincrement())
+  customerName String
+  amount      Float
+  description String?
+  shopId      Int
+  shop        Shop     @relation(fields: [shopId], references: [id])
+  isPaid      Boolean  @default(false)
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
