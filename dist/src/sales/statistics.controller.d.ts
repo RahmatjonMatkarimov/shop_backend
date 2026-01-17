@@ -54,6 +54,7 @@ export declare class StatisticsController {
         price?: number | undefined;
         costPrice?: number | null | undefined;
         quantity?: number | undefined;
+        unit?: string | undefined;
         barcode?: string | null | undefined;
         boxBarcode?: string | null | undefined;
         itemsPerBox?: number | undefined;

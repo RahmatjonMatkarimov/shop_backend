@@ -27,6 +27,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -41,6 +42,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -73,6 +75,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -105,6 +108,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -137,6 +141,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -151,6 +156,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -165,6 +171,7 @@ export declare class ProductsService {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;

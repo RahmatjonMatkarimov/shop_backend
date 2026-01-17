@@ -45,7 +45,8 @@ model Product {
   name        String
   price       Float
   costPrice   Float?   // Tannarxi
-  quantity    Int      @default(0)
+  quantity    Float    @default(0) // Changed to Float
+  unit        String   @default("dona") // "dona" or "kg"
   barcode     String?  @unique
   boxBarcode  String?  // Karobka shtrix kodi
   itemsPerBox Int      @default(1) // Karobka ichidagi soni
@@ -73,7 +74,7 @@ model SaleItem {
   sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
   productId Int
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity  Int
+  quantity  Float   // Changed to Float
   price     Float
 }
 

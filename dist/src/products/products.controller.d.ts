@@ -27,6 +27,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -59,6 +60,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -91,6 +93,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -123,6 +126,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -137,6 +141,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -151,6 +156,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
@@ -165,6 +171,7 @@ export declare class ProductsController {
         price: number;
         costPrice: number | null;
         quantity: number;
+        unit: string;
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;

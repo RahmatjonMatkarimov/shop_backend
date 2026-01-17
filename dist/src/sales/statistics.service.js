@@ -203,15 +203,15 @@ let StatisticsService = class StatisticsService {
         const categories = await this.prisma.category.findMany({
             where: userId ? { userId } : {},
             include: {
-                _count: {
-                    select: { products: true }
+                products: {
+                    select: { quantity: true }
                 }
             }
         });
         return categories.map(cat => ({
             id: cat.id,
             name: cat.name,
-            productCount: cat._count.products
+            productCount: cat.products.reduce((sum, product) => sum + product.quantity, 0)
         }));
     }
     async exportSalesToExcel(userId, startDate, endDate) {

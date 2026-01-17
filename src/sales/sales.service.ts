@@ -14,6 +14,9 @@ export class SalesService {
     for (const item of data.items) {
         const product = await this.prisma.product.findUnique({ where: { id: item.productId } });
         if (!product) throw new BadRequestException(`Product ${item.productId} not found`);
+        if (product.quantity < item.quantity) {
+             throw new BadRequestException(`"${product.name}" mahsuloti yetarli emas. Omborda: ${product.quantity}, So'raldi: ${item.quantity}`);
+        }
     }
 
     // 2. Create Sale and SaleItems

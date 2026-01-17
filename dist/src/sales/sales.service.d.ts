@@ -60,6 +60,7 @@ export declare class SalesService {
                 price: number;
                 costPrice: number | null;
                 quantity: number;
+                unit: string;
                 barcode: string | null;
                 boxBarcode: string | null;
                 itemsPerBox: number;
@@ -132,6 +133,7 @@ export declare class SalesService {
         price?: number | undefined;
         costPrice?: number | null | undefined;
         quantity?: number | undefined;
+        unit?: string | undefined;
         barcode?: string | null | undefined;
         boxBarcode?: string | null | undefined;
         itemsPerBox?: number | undefined;

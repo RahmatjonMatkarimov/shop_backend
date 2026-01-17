@@ -18,13 +18,26 @@ let ProductsService = class ProductsService {
     }
     async create(data) {
         const barcode = data.barcode?.trim();
-        if (barcode) {
-            const existingProduct = await this.prisma.product.findFirst({
-                where: { barcode: barcode }
-            });
-            if (existingProduct) {
-                throw new common_1.ConflictException(`Product with barcode ${barcode} already exists`);
+        const name = data.name?.trim();
+        const existingProduct = await this.prisma.product.findFirst({
+            where: {
+                userId: data.userId,
+                OR: [
+                    { barcode: barcode ? barcode : undefined },
+                    { name: { equals: name, mode: 'insensitive' } }
+                ]
             }
+        });
+        if (existingProduct) {
+            return this.prisma.product.update({
+                where: { id: existingProduct.id },
+                data: {
+                    quantity: { increment: data.quantity },
+                    price: data.price,
+                    costPrice: data.costPrice
+                },
+                include: { category: true, user: true }
+            });
         }
         return this.prisma.product.create({
             data: {
@@ -35,6 +48,7 @@ let ProductsService = class ProductsService {
                 barcode: data.barcode,
                 boxBarcode: data.boxBarcode,
                 itemsPerBox: data.itemsPerBox,
+                unit: data.unit,
                 user: { connect: { id: data.userId } },
                 category: data.categoryId ? { connect: { id: data.categoryId } } : undefined,
             },
