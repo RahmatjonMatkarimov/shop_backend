@@ -29,13 +29,29 @@ export declare class SalesService {
             createdAt: Date;
             updatedAt: Date;
         };
-        items: {
+        items: ({
+            product: {
+                id: number;
+                name: string;
+                price: number;
+                costPrice: number | null;
+                quantity: number;
+                unit: string;
+                barcode: string | null;
+                boxBarcode: string | null;
+                itemsPerBox: number;
+                userId: number;
+                categoryId: number | null;
+                createdAt: Date;
+                updatedAt: Date;
+            };
+        } & {
             id: number;
             saleId: number;
             productId: number;
             quantity: number;
             price: number;
-        }[];
+        })[];
     } & {
         id: number;
         totalAmount: number;

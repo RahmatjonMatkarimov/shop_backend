@@ -85,12 +85,6 @@ let ProductsService = class ProductsService {
         return this.prisma.product.update({ where: { id }, data });
     }
     async remove(id) {
-        const saleItemsCount = await this.prisma.saleItem.count({
-            where: { productId: id }
-        });
-        if (saleItemsCount > 0) {
-            throw new common_1.ConflictException('Bu mahsulot sotilgan (savdo tarixida mavjud), uni o\'chirib bo\'lmaydi. Arxivlash tavsiya etiladi.');
-        }
         return this.prisma.product.delete({ where: { id } });
     }
 };

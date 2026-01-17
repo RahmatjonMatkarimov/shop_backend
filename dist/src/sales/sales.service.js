@@ -51,7 +51,14 @@ let SalesService = class SalesService {
     }
     async findAll() {
         return this.prisma.sale.findMany({
-            include: { user: true, items: true },
+            include: {
+                user: true,
+                items: {
+                    include: {
+                        product: true
+                    }
+                }
+            },
             orderBy: { createdAt: 'desc' }
         });
     }
