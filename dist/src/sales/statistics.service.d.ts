@@ -6,6 +6,8 @@ export declare class StatisticsService {
     getDashboardStats(startDate?: Date, endDate?: Date): Promise<{
         totalSales: number;
         totalRevenue: number;
+        totalExpense: number;
+        totalProfit: number;
         totalProducts: number;
         totalDebts: number;
         recentSales: ({

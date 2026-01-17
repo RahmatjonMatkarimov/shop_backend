@@ -84,6 +84,8 @@ export declare class SalesService {
     getDashboardStats(): Promise<{
         totalSales: number;
         totalRevenue: number;
+        totalExpense: number;
+        totalProfit: number;
         totalProducts: number;
         totalDebts: number;
         recentSales: ({

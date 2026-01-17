@@ -33,9 +33,27 @@ export class StatisticsService {
       include: { user: true }
     });
 
+    const allSales = await this.prisma.sale.findMany({
+      where: whereClause,
+      include: { items: { include: { product: true } } }
+    });
+
+    let totalExpense = 0;
+    let totalProfit = 0;
+
+    allSales.forEach(sale => {
+      sale.items.forEach(item => {
+        const cost = (item.product.costPrice || 0) * item.quantity;
+        totalExpense += cost;
+        totalProfit += (item.price * item.quantity) - cost;
+      });
+    });
+
     return {
       totalSales: totalSalesCount,
       totalRevenue: totalRevenue._sum?.totalAmount || 0,
+      totalExpense,
+      totalProfit,
       totalProducts,
       totalDebts: totalDebts._sum?.amount || 0,
       recentSales
