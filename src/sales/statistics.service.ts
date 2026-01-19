@@ -6,8 +6,8 @@ import { Workbook } from 'exceljs';
 export class StatisticsService {
   constructor(private prisma: PrismaService) {}
 
-  async getDashboardStats(startDate?: Date, endDate?: Date) {
-    const whereClause: any = {};
+  async getDashboardStats(userId: number, startDate?: Date, endDate?: Date) {
+    const whereClause: any = { userId };
     if (startDate || endDate) {
       whereClause.createdAt = {
         ...(startDate ? { gte: startDate } : {}),

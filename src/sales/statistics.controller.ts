@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards, Res, Req } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
 import { AuthGuard } from '@nestjs/passport';
 import type { Response } from 'express';
@@ -10,10 +10,12 @@ export class StatisticsController {
 
   @Get('dashboard')
   getDashboardStats(
+    @Req() req: any,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
   ) {
     return this.statisticsService.getDashboardStats(
+      req.user.userId,
       startDate ? new Date(startDate) : undefined,
       endDate ? new Date(endDate) : undefined,
     );
