@@ -3,7 +3,7 @@ import { Workbook } from 'exceljs';
 export declare class StatisticsService {
     private prisma;
     constructor(prisma: PrismaService);
-    getDashboardStats(startDate?: Date, endDate?: Date): Promise<{
+    getDashboardStats(userId: number, startDate?: Date, endDate?: Date): Promise<{
         totalSales: number;
         totalRevenue: number;
         totalExpense: number;

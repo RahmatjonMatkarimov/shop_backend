@@ -49,8 +49,9 @@ let SalesService = class SalesService {
         }
         return sale;
     }
-    async findAll() {
+    async findAll(userId) {
         return this.prisma.sale.findMany({
+            where: { userId },
             include: {
                 user: true,
                 items: {
@@ -65,8 +66,8 @@ let SalesService = class SalesService {
     findOne(id) {
         return this.prisma.sale.findUnique({ where: { id }, include: { user: true, items: { include: { product: true } } } });
     }
-    async getDashboardStats() {
-        return this.statisticsService.getDashboardStats();
+    async getDashboardStats(userId) {
+        return this.statisticsService.getDashboardStats(userId);
     }
     async getStats(userId) {
         return this.statisticsService.getSalesStats(userId);

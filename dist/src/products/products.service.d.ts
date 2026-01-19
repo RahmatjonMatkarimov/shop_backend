@@ -51,7 +51,7 @@ export declare class ProductsService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findByBarcode(barcode: string): Promise<({
+    findByBarcode(barcode: string, userId: number): Promise<({
         user: {
             id: number;
             email: string;

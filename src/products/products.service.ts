@@ -60,9 +60,10 @@ export class ProductsService {
      });
   }
   
-  async findByBarcode(barcode: string) {
+  async findByBarcode(barcode: string, userId: number) {
       return this.prisma.product.findFirst({
           where: {
+              userId,
               OR: [
                   { barcode: barcode },
                   { boxBarcode: barcode }

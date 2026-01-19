@@ -14,8 +14,8 @@ export class SalesController {
   }
 
   @Get()
-  findAll() {
-    return this.salesService.findAll();
+  findAll(@Req() req: any) {
+    return this.salesService.findAll(req.user.userId);
   }
 
   @Get('dashboard-stats')

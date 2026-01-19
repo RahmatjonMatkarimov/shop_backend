@@ -69,7 +69,7 @@ export declare class ProductsController {
         createdAt: Date;
         updatedAt: Date;
     })[]>;
-    findByBarcode(barcode: string): Promise<({
+    findByBarcode(barcode: string, req: any): Promise<({
         user: {
             id: number;
             email: string;

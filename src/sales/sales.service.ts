@@ -46,8 +46,9 @@ export class SalesService {
     return sale;
   }
 
-  async findAll() {
+  async findAll(userId: number) {
     return this.prisma.sale.findMany({
+      where: { userId },
       include: { 
         user: true, 
         items: {
@@ -64,8 +65,8 @@ export class SalesService {
     return this.prisma.sale.findUnique({ where: { id }, include: { user: true, items: { include: { product: true } } } });
   }
 
-  async getDashboardStats() {
-      return this.statisticsService.getDashboardStats();
+  async getDashboardStats(userId: number) {
+      return this.statisticsService.getDashboardStats(userId);
   }
 
    async getStats(userId?: number) {

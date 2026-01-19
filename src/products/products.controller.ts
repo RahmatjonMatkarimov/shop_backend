@@ -20,8 +20,8 @@ export class ProductsController {
   }
 
   @Get('barcode/:barcode')
-  findByBarcode(@Param('barcode') barcode: string) {
-      return this.productsService.findByBarcode(barcode);
+  findByBarcode(@Param('barcode') barcode: string, @Req() req: any) {
+      return this.productsService.findByBarcode(barcode, req.user.userId);
   }
 
   @Get(':id')

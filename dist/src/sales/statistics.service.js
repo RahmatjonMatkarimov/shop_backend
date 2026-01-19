@@ -17,8 +17,8 @@ let StatisticsService = class StatisticsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getDashboardStats(startDate, endDate) {
-        const whereClause = {};
+    async getDashboardStats(userId, startDate, endDate) {
+        const whereClause = { userId };
         if (startDate || endDate) {
             whereClause.createdAt = {
                 ...(startDate ? { gte: startDate } : {}),

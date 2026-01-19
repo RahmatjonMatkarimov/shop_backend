@@ -61,9 +61,10 @@ let ProductsService = class ProductsService {
             data: { quantity: { increment: quantity } }
         });
     }
-    async findByBarcode(barcode) {
+    async findByBarcode(barcode, userId) {
         return this.prisma.product.findFirst({
             where: {
+                userId,
                 OR: [
                     { barcode: barcode },
                     { boxBarcode: barcode }

@@ -18,7 +18,7 @@ export declare class SalesService {
         userId: number;
         createdAt: Date;
     }>;
-    findAll(): Promise<({
+    findAll(userId: number): Promise<({
         user: {
             id: number;
             email: string;
@@ -98,7 +98,7 @@ export declare class SalesService {
         userId: number;
         createdAt: Date;
     }) | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
-    getDashboardStats(): Promise<{
+    getDashboardStats(userId: number): Promise<{
         totalSales: number;
         totalRevenue: number;
         totalExpense: number;

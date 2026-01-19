@@ -28,8 +28,8 @@ let ProductsController = class ProductsController {
     findAll(req) {
         return this.productsService.findAll(req.user.userId);
     }
-    findByBarcode(barcode) {
-        return this.productsService.findByBarcode(barcode);
+    findByBarcode(barcode, req) {
+        return this.productsService.findByBarcode(barcode, req.user.userId);
     }
     findOne(id) {
         return this.productsService.findOne(+id);
@@ -63,8 +63,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)('barcode/:barcode'),
     __param(0, (0, common_1.Param)('barcode')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "findByBarcode", null);
 __decorate([

@@ -20,8 +20,8 @@ let StatisticsController = class StatisticsController {
     constructor(statisticsService) {
         this.statisticsService = statisticsService;
     }
-    getDashboardStats(startDate, endDate) {
-        return this.statisticsService.getDashboardStats(startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
+    getDashboardStats(req, startDate, endDate) {
+        return this.statisticsService.getDashboardStats(req.user.userId, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
     }
     getSalesStats(userId, startDate, endDate) {
         return this.statisticsService.getSalesStats(userId ? +userId : undefined, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
@@ -43,10 +43,11 @@ let StatisticsController = class StatisticsController {
 exports.StatisticsController = StatisticsController;
 __decorate([
     (0, common_1.Get)('dashboard'),
-    __param(0, (0, common_1.Query)('startDate')),
-    __param(1, (0, common_1.Query)('endDate')),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('startDate')),
+    __param(2, (0, common_1.Query)('endDate')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", void 0)
 ], StatisticsController.prototype, "getDashboardStats", null);
 __decorate([

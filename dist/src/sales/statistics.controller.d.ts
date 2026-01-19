@@ -3,7 +3,7 @@ import type { Response } from 'express';
 export declare class StatisticsController {
     private readonly statisticsService;
     constructor(statisticsService: StatisticsService);
-    getDashboardStats(startDate?: string, endDate?: string): Promise<{
+    getDashboardStats(req: any, startDate?: string, endDate?: string): Promise<{
         totalSales: number;
         totalRevenue: number;
         totalExpense: number;

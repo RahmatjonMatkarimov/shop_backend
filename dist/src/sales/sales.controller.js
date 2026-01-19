@@ -24,8 +24,8 @@ let SalesController = class SalesController {
         createSaleDto.userId = req.user.userId;
         return this.salesService.create(createSaleDto);
     }
-    findAll() {
-        return this.salesService.findAll();
+    findAll(req) {
+        return this.salesService.findAll(req.user.userId);
     }
     getDashboardStats(req) {
         return this.salesService.getStats(req.user.userId);
@@ -48,8 +48,9 @@ __decorate([
 ], SalesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "findAll", null);
 __decorate([

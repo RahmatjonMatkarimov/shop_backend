@@ -16,7 +16,7 @@ export declare class SalesController {
         userId: number;
         createdAt: Date;
     }>;
-    findAll(): Promise<({
+    findAll(req: any): Promise<({
         user: {
             id: number;
             email: string;
