@@ -68,7 +68,7 @@ export declare class SalesController {
         todayRevenue: number;
         todayCount: number;
     }>;
-    getStats(userId?: string): Promise<{
+    getStats(req: any): Promise<{
         stats: {
             label: string;
             revenue: number;

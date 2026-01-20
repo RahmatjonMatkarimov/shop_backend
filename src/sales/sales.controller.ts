@@ -27,8 +27,8 @@ export class SalesController {
   }
 
   @Get('stats')
-  getStats(@Query('userId') userId?: string) {
-      return this.salesService.getStats(userId ? +userId : undefined);
+  getStats(@Req() req: any) {
+      return this.salesService.getStats(req.user.userId);
   }
 
   @Delete('all')

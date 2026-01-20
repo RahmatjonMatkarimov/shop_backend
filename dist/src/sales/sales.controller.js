@@ -30,8 +30,8 @@ let SalesController = class SalesController {
     getDashboardStats(req) {
         return this.salesService.getStats(req.user.userId);
     }
-    getStats(userId) {
-        return this.salesService.getStats(userId ? +userId : undefined);
+    getStats(req) {
+        return this.salesService.getStats(req.user.userId);
     }
     clearAllSales() {
         return this.salesService.clearAllSales();
@@ -62,9 +62,9 @@ __decorate([
 ], SalesController.prototype, "getDashboardStats", null);
 __decorate([
     (0, common_1.Get)('stats'),
-    __param(0, (0, common_1.Query)('userId')),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "getStats", null);
 __decorate([

@@ -23,36 +23,36 @@ export class StatisticsController {
 
   @Get('sales')
   getSalesStats(
-    @Query('userId') userId?: string,
+    @Req() req: any,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
   ) {
     return this.statisticsService.getSalesStats(
-      userId ? +userId : undefined,
+      req.user.userId,
       startDate ? new Date(startDate) : undefined,
       endDate ? new Date(endDate) : undefined,
     );
   }
 
   @Get('top-selling')
-  getTopSelling(@Query('userId') userId?: string, @Query('limit') limit?: string) {
-      return this.statisticsService.getTopSellingProducts(userId ? +userId : undefined, limit ? +limit : 5);
+  getTopSelling(@Req() req: any, @Query('limit') limit?: string) {
+      return this.statisticsService.getTopSellingProducts(req.user.userId, limit ? +limit : 5);
   }
 
   @Get('categories')
-  getCategoryStats(@Query('userId') userId?: string) {
-      return this.statisticsService.getCategoryStats(userId ? +userId : undefined);
+  getCategoryStats(@Req() req: any) {
+      return this.statisticsService.getCategoryStats(req.user.userId);
   }
 
   @Get('export')
   async exportSales(
+    @Req() req: any,
     @Res() res: Response,
-    @Query('userId') userId?: string,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
   ) {
     const workbook = await this.statisticsService.exportSalesToExcel(
-      userId ? +userId : undefined,
+      req.user.userId,
       startDate ? new Date(startDate) : undefined,
       endDate ? new Date(endDate) : undefined,
     );

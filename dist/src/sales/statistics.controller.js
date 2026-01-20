@@ -23,17 +23,17 @@ let StatisticsController = class StatisticsController {
     getDashboardStats(req, startDate, endDate) {
         return this.statisticsService.getDashboardStats(req.user.userId, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
     }
-    getSalesStats(userId, startDate, endDate) {
-        return this.statisticsService.getSalesStats(userId ? +userId : undefined, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
+    getSalesStats(req, startDate, endDate) {
+        return this.statisticsService.getSalesStats(req.user.userId, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
     }
-    getTopSelling(userId, limit) {
-        return this.statisticsService.getTopSellingProducts(userId ? +userId : undefined, limit ? +limit : 5);
+    getTopSelling(req, limit) {
+        return this.statisticsService.getTopSellingProducts(req.user.userId, limit ? +limit : 5);
     }
-    getCategoryStats(userId) {
-        return this.statisticsService.getCategoryStats(userId ? +userId : undefined);
+    getCategoryStats(req) {
+        return this.statisticsService.getCategoryStats(req.user.userId);
     }
-    async exportSales(res, userId, startDate, endDate) {
-        const workbook = await this.statisticsService.exportSalesToExcel(userId ? +userId : undefined, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
+    async exportSales(req, res, startDate, endDate) {
+        const workbook = await this.statisticsService.exportSalesToExcel(req.user.userId, startDate ? new Date(startDate) : undefined, endDate ? new Date(endDate) : undefined);
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader('Content-Disposition', 'attachment; filename=sales_report.xlsx');
         await workbook.xlsx.write(res);
@@ -52,36 +52,36 @@ __decorate([
 ], StatisticsController.prototype, "getDashboardStats", null);
 __decorate([
     (0, common_1.Get)('sales'),
-    __param(0, (0, common_1.Query)('userId')),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('startDate')),
     __param(2, (0, common_1.Query)('endDate')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", void 0)
 ], StatisticsController.prototype, "getSalesStats", null);
 __decorate([
     (0, common_1.Get)('top-selling'),
-    __param(0, (0, common_1.Query)('userId')),
+    __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('limit')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", void 0)
 ], StatisticsController.prototype, "getTopSelling", null);
 __decorate([
     (0, common_1.Get)('categories'),
-    __param(0, (0, common_1.Query)('userId')),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], StatisticsController.prototype, "getCategoryStats", null);
 __decorate([
     (0, common_1.Get)('export'),
-    __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Query)('userId')),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
     __param(2, (0, common_1.Query)('startDate')),
     __param(3, (0, common_1.Query)('endDate')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String, String]),
+    __metadata("design:paramtypes", [Object, Object, String, String]),
     __metadata("design:returntype", Promise)
 ], StatisticsController.prototype, "exportSales", null);
 exports.StatisticsController = StatisticsController = __decorate([

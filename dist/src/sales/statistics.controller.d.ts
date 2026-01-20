@@ -28,7 +28,7 @@ export declare class StatisticsController {
             createdAt: Date;
         })[];
     }>;
-    getSalesStats(userId?: string, startDate?: string, endDate?: string): Promise<{
+    getSalesStats(req: any, startDate?: string, endDate?: string): Promise<{
         stats: {
             label: string;
             revenue: number;
@@ -40,7 +40,7 @@ export declare class StatisticsController {
         todayRevenue: number;
         todayCount: number;
     }>;
-    getTopSelling(userId?: string, limit?: string): Promise<{
+    getTopSelling(req: any, limit?: string): Promise<{
         soldQuantity: number | null;
         category?: {
             id: number;
@@ -63,10 +63,10 @@ export declare class StatisticsController {
         createdAt?: Date | undefined;
         updatedAt?: Date | undefined;
     }[]>;
-    getCategoryStats(userId?: string): Promise<{
+    getCategoryStats(req: any): Promise<{
         id: number;
         name: string;
         productCount: number;
     }[]>;
-    exportSales(res: Response, userId?: string, startDate?: string, endDate?: string): Promise<void>;
+    exportSales(req: any, res: Response, startDate?: string, endDate?: string): Promise<void>;
 }
