@@ -9,6 +9,9 @@ export declare class AuthService {
         access_token: string;
         user: any;
     }>;
+    refreshToken(user: any): Promise<{
+        access_token: string;
+    }>;
     register(userDto: any): Promise<{
         id: number;
         email: string;

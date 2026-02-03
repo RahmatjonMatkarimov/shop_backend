@@ -5,14 +5,14 @@ export declare class DebtsController {
     constructor(debtsService: DebtsService);
     create(createDebtDto: any, req: any): Prisma.Prisma__DebtClient<{
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     findAll(req: any): Prisma.PrismaPromise<({
         user: {
@@ -21,20 +21,20 @@ export declare class DebtsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
     } & {
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     })[]>;
     findOne(id: string): Prisma.Prisma__DebtClient<({
         user: {
@@ -43,52 +43,52 @@ export declare class DebtsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
     } & {
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     }) | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: string, updateDebtDto: Prisma.DebtUpdateInput): Prisma.Prisma__DebtClient<{
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     pay(id: string, amount: number): Promise<{
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     remove(id: string): Prisma.Prisma__DebtClient<{
         id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: number;
         customerName: string;
         amount: number;
         description: string | null;
-        userId: number;
         isPaid: boolean;
         dueDate: Date | null;
-        createdAt: Date;
-        updatedAt: Date;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
 }

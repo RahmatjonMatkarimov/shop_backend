@@ -5,16 +5,16 @@ export declare class SalesController {
     create(createSaleDto: any, req: any): Promise<{
         items: {
             id: number;
+            price: number;
+            quantity: number;
             saleId: number;
             productId: number;
-            quantity: number;
-            price: number;
         }[];
     } & {
         id: number;
-        totalAmount: number;
-        userId: number;
         createdAt: Date;
+        userId: number;
+        totalAmount: number;
     }>;
     findAll(req: any): Promise<({
         user: {
@@ -31,6 +31,8 @@ export declare class SalesController {
             product: {
                 id: number;
                 name: string;
+                createdAt: Date;
+                updatedAt: Date;
                 price: number;
                 costPrice: number | null;
                 quantity: number;
@@ -38,23 +40,21 @@ export declare class SalesController {
                 barcode: string | null;
                 boxBarcode: string | null;
                 itemsPerBox: number;
-                userId: number;
                 categoryId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
+                userId: number;
             };
         } & {
             id: number;
+            price: number;
+            quantity: number;
             saleId: number;
             productId: number;
-            quantity: number;
-            price: number;
         })[];
     } & {
         id: number;
-        totalAmount: number;
-        userId: number;
         createdAt: Date;
+        userId: number;
+        totalAmount: number;
     })[]>;
     getDashboardStats(req: any): Promise<{
         stats: {

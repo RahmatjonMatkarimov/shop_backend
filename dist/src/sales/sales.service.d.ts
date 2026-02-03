@@ -7,16 +7,16 @@ export declare class SalesService {
     create(data: any): Promise<{
         items: {
             id: number;
+            price: number;
+            quantity: number;
             saleId: number;
             productId: number;
-            quantity: number;
-            price: number;
         }[];
     } & {
         id: number;
-        totalAmount: number;
-        userId: number;
         createdAt: Date;
+        userId: number;
+        totalAmount: number;
     }>;
     findAll(userId: number): Promise<({
         user: {
@@ -33,6 +33,8 @@ export declare class SalesService {
             product: {
                 id: number;
                 name: string;
+                createdAt: Date;
+                updatedAt: Date;
                 price: number;
                 costPrice: number | null;
                 quantity: number;
@@ -40,23 +42,21 @@ export declare class SalesService {
                 barcode: string | null;
                 boxBarcode: string | null;
                 itemsPerBox: number;
-                userId: number;
                 categoryId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
+                userId: number;
             };
         } & {
             id: number;
+            price: number;
+            quantity: number;
             saleId: number;
             productId: number;
-            quantity: number;
-            price: number;
         })[];
     } & {
         id: number;
-        totalAmount: number;
-        userId: number;
         createdAt: Date;
+        userId: number;
+        totalAmount: number;
     })[]>;
     findOne(id: number): import(".prisma/client").Prisma.Prisma__SaleClient<({
         user: {
@@ -73,6 +73,8 @@ export declare class SalesService {
             product: {
                 id: number;
                 name: string;
+                createdAt: Date;
+                updatedAt: Date;
                 price: number;
                 costPrice: number | null;
                 quantity: number;
@@ -80,23 +82,21 @@ export declare class SalesService {
                 barcode: string | null;
                 boxBarcode: string | null;
                 itemsPerBox: number;
-                userId: number;
                 categoryId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
+                userId: number;
             };
         } & {
             id: number;
+            price: number;
+            quantity: number;
             saleId: number;
             productId: number;
-            quantity: number;
-            price: number;
         })[];
     } & {
         id: number;
-        totalAmount: number;
-        userId: number;
         createdAt: Date;
+        userId: number;
+        totalAmount: number;
     }) | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
     getDashboardStats(userId: number): Promise<{
         totalSales: number;
@@ -118,9 +118,9 @@ export declare class SalesService {
             };
         } & {
             id: number;
-            totalAmount: number;
-            userId: number;
             createdAt: Date;
+            userId: number;
+            totalAmount: number;
         })[];
     }>;
     getStats(userId?: number): Promise<{
@@ -140,12 +140,14 @@ export declare class SalesService {
         category?: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null | undefined;
         id?: number | undefined;
         name?: string | undefined;
+        createdAt?: Date | undefined;
+        updatedAt?: Date | undefined;
         price?: number | undefined;
         costPrice?: number | null | undefined;
         quantity?: number | undefined;
@@ -153,10 +155,8 @@ export declare class SalesService {
         barcode?: string | null | undefined;
         boxBarcode?: string | null | undefined;
         itemsPerBox?: number | undefined;
-        userId?: number | undefined;
         categoryId?: number | null | undefined;
-        createdAt?: Date | undefined;
-        updatedAt?: Date | undefined;
+        userId?: number | undefined;
     }[]>;
     getCategoryStats(userId?: number): Promise<{
         id: number;

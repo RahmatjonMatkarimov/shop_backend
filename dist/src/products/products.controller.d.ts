@@ -10,20 +10,22 @@ export declare class ProductsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
         category: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null;
     } & {
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -31,10 +33,8 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }>;
     findAll(req: any): Prisma.PrismaPromise<({
         user: {
@@ -43,20 +43,22 @@ export declare class ProductsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
         category: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null;
     } & {
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -64,10 +66,8 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     })[]>;
     findByBarcode(barcode: string, req: any): Promise<({
         user: {
@@ -76,20 +76,22 @@ export declare class ProductsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
         category: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null;
     } & {
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -97,10 +99,8 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }) | null>;
     findOne(id: string): Prisma.Prisma__ProductClient<({
         user: {
@@ -109,20 +109,22 @@ export declare class ProductsController {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
         category: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null;
     } & {
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -130,14 +132,14 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }) | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: string, updateProductDto: Prisma.ProductUpdateInput): Prisma.Prisma__ProductClient<{
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -145,14 +147,14 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     addStock(id: string, quantity: number): Promise<{
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -160,14 +162,14 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }>;
     remove(id: string): Promise<{
         id: number;
         name: string;
+        createdAt: Date;
+        updatedAt: Date;
         price: number;
         costPrice: number | null;
         quantity: number;
@@ -175,9 +177,7 @@ export declare class ProductsController {
         barcode: string | null;
         boxBarcode: string | null;
         itemsPerBox: number;
-        userId: number;
         categoryId: number | null;
-        createdAt: Date;
-        updatedAt: Date;
+        userId: number;
     }>;
 }

@@ -12,7 +12,7 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    if (user && await bcrypt.compare(pass, user.password)) {
+    if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
     }
@@ -24,6 +24,14 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
       user,
+    };
+  }
+
+  async refreshToken(user: any) {
+    // We already have user info from the guard, just sign a new token
+    const payload = { email: user.email, sub: user.userId, role: user.role };
+    return {
+      access_token: this.jwtService.sign(payload),
     };
   }
 

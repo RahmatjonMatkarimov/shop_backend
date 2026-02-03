@@ -6,9 +6,9 @@ export declare class CategoriesService {
     create(data: any): Prisma.Prisma__CategoryClient<{
         id: number;
         name: string;
-        userId: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     findAll(userId: number): Prisma.PrismaPromise<({
         user: {
@@ -17,7 +17,7 @@ export declare class CategoriesService {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
@@ -27,14 +27,16 @@ export declare class CategoriesService {
     } & {
         id: number;
         name: string;
-        userId: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     })[]>;
     findOne(id: number): Prisma.Prisma__CategoryClient<({
         products: {
             id: number;
             name: string;
+            createdAt: Date;
+            updatedAt: Date;
             price: number;
             costPrice: number | null;
             quantity: number;
@@ -42,10 +44,8 @@ export declare class CategoriesService {
             barcode: string | null;
             boxBarcode: string | null;
             itemsPerBox: number;
-            userId: number;
             categoryId: number | null;
-            createdAt: Date;
-            updatedAt: Date;
+            userId: number;
         }[];
         user: {
             id: number;
@@ -53,29 +53,29 @@ export declare class CategoriesService {
             password: string;
             name: string | null;
             shopName: string | null;
-            role: import("@prisma/client").$Enums.Role;
+            role: import(".prisma/client").$Enums.Role;
             createdAt: Date;
             updatedAt: Date;
         };
     } & {
         id: number;
         name: string;
-        userId: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }) | null, null, import("@prisma/client/runtime/library").DefaultArgs>;
     update(id: number, data: Prisma.CategoryUpdateInput): Prisma.Prisma__CategoryClient<{
         id: number;
         name: string;
-        userId: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     remove(id: number): Prisma.Prisma__CategoryClient<{
         id: number;
         name: string;
-        userId: number;
         createdAt: Date;
         updatedAt: Date;
+        userId: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs>;
 }

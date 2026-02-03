@@ -23,9 +23,9 @@ export declare class StatisticsController {
             };
         } & {
             id: number;
-            totalAmount: number;
-            userId: number;
             createdAt: Date;
+            userId: number;
+            totalAmount: number;
         })[];
     }>;
     getSalesStats(req: any, startDate?: string, endDate?: string): Promise<{
@@ -45,12 +45,14 @@ export declare class StatisticsController {
         category?: {
             id: number;
             name: string;
-            userId: number;
             createdAt: Date;
             updatedAt: Date;
+            userId: number;
         } | null | undefined;
         id?: number | undefined;
         name?: string | undefined;
+        createdAt?: Date | undefined;
+        updatedAt?: Date | undefined;
         price?: number | undefined;
         costPrice?: number | null | undefined;
         quantity?: number | undefined;
@@ -58,10 +60,8 @@ export declare class StatisticsController {
         barcode?: string | null | undefined;
         boxBarcode?: string | null | undefined;
         itemsPerBox?: number | undefined;
-        userId?: number | undefined;
         categoryId?: number | null | undefined;
-        createdAt?: Date | undefined;
-        updatedAt?: Date | undefined;
+        userId?: number | undefined;
     }[]>;
     getCategoryStats(req: any): Promise<{
         id: number;

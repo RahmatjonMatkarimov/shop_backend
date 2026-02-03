@@ -17,4 +17,7 @@ export declare class AuthController {
         updatedAt: Date;
     }>;
     getProfile(req: any): any;
+    refresh(req: any): Promise<{
+        access_token: string;
+    }>;
 }
